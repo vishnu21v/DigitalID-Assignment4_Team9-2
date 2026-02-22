@@ -30,6 +30,7 @@ class PersonDemeritTest {
 
     @Test
     void testValidDemeritAddition() {
+        // Verifying successful demerit point addition using valid input values
         Person p = new Person("56s_d%&fAB", "15-11-1990");
         assertEquals("Success",
                 p.addDemeritPoints("10-02-2026", 3),
@@ -38,6 +39,7 @@ class PersonDemeritTest {
 
     @Test
     void testInvalidDateFormat() {
+        // Verifying method rejects invalid date format during demerit addition
         Person p = new Person("56s_d%&fAB", "15-11-1990");
         assertEquals("Failed",
                 p.addDemeritPoints("10/02/2026", 3),
@@ -46,6 +48,7 @@ class PersonDemeritTest {
 
     @Test
     void testInvalidDateFormatReversed() {
+        // Ensuring incorrect reversed date format results in failed response
         Person p = new Person("56s_d%&fAB", "15-11-1990");
         assertEquals("Failed",
                 p.addDemeritPoints("2026-02-10", 3),
@@ -54,6 +57,7 @@ class PersonDemeritTest {
 
     @Test
     void testEmptyDateString() {
+        // Checking validation logic for missing date value input
         Person p = new Person("56s_d%&fAB", "15-11-1990");
         assertEquals("Failed",
                 p.addDemeritPoints("", 3),
@@ -62,6 +66,7 @@ class PersonDemeritTest {
 
     @Test
     void testPointsOutsideRange() {
+        // Verifying method rejects addition of points outside valid range
         Person p = new Person("56s_d%&fAB", "15-11-1990");
         assertEquals("Failed",
                 p.addDemeritPoints("10-02-2026", 7),
@@ -70,6 +75,7 @@ class PersonDemeritTest {
 
     @Test
     void testPointsBelowValidRange() {
+        // Confirming system handles below-range demerit points appropriately
         Person p = new Person("56s_d%&fAB", "15-11-1990");
         assertEquals("Failed",
                 p.addDemeritPoints("10-02-2026", 0),
@@ -78,6 +84,7 @@ class PersonDemeritTest {
 
     @Test
     void testNegativePoints() {
+        // Testing failure when demerit points are negative and invalid
         Person p = new Person("56s_d%&fAB", "15-11-1990");
         assertEquals("Failed",
                 p.addDemeritPoints("10-02-2026", -1),
@@ -86,6 +93,7 @@ class PersonDemeritTest {
 
     @Test
     void testUnder21SuspensionTrigger() {
+        // Checking suspension logic for persons under twenty-one years old
         Person p = new Person("22s_d%&fXY", "01-01-2008");
 
         p.addDemeritPoints("01-01-2026", 4);
@@ -97,6 +105,7 @@ class PersonDemeritTest {
 
     @Test
     void testUnder21ExactlyAtThresholdNotSuspended() {
+        // Verifying no suspension occurs exactly at maximum allowed points
         Person p = new Person("22s_d%&fXY", "01-01-2008");
 
         p.addDemeritPoints("01-01-2026", 6); // total = 6
@@ -107,6 +116,7 @@ class PersonDemeritTest {
 
     @Test
     void testOver21SuspensionTrigger() {
+        // Confirming system suspends over-21 individuals exceeding maximum demerit points
         Person p = new Person("56s_d%&fAB", "01-01-1990");
 
         p.addDemeritPoints("01-01-2026", 6);
@@ -119,6 +129,7 @@ class PersonDemeritTest {
 
     @Test
     void testOver21ExactlyAtThresholdNotSuspended() {
+        // Testing over-21 person not suspended when points equal threshold
         Person p = new Person("56s_d%&fAB", "01-01-1990");
 
         p.addDemeritPoints("01-01-2026", 6);
@@ -130,6 +141,7 @@ class PersonDemeritTest {
 
     @Test
     void testDemeritPointsWrittenToFile() throws IOException {
+        //  Storing demerit points data correctly in the designated text file
         Person p = new Person("56s_d%&fAB", "15-11-1990");
 
         p.addDemeritPoints("10-02-2026", 3);

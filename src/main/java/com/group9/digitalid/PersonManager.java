@@ -112,6 +112,7 @@ public class PersonManager {
     }
 
     private boolean idExists(Path path, String id) throws IOException {
+        // Checking whether given ID already exists in specified file
         List<String> lines = Files.readAllLines(path);
         for (String line : lines) {
             String[] parts = line.split("\\|", -1);
@@ -121,6 +122,7 @@ public class PersonManager {
     }
 
     private boolean isValidPersonID(String id) {
+        // Verifying last two characters are uppercase letters as expected
         if (id == null || id.length() != 10) return false;
 
         for (int i = 0; i < 2; i++) {
@@ -144,6 +146,7 @@ public class PersonManager {
     }
 
     private boolean isValidAddress(String addr) {
+        // Returning true only if address format and state are correct
         if (addr == null || addr.isEmpty()) return false;
         String[] p = addr.split("\\|", -1);
         if (p.length != 5) return false;
@@ -151,6 +154,7 @@ public class PersonManager {
     }
 
     private boolean isValidBirthdate(String d) {
+        // Ensuring method rejects birthdate values that cannot be parsed correctly
         if (d == null || d.isEmpty()) return false;
         try {
             LocalDate.parse(d.trim(), DATE_FORMATTER);
@@ -161,6 +165,7 @@ public class PersonManager {
     }
 
     private int calculateAge(String birthdate, LocalDate onDate) {
+        // Parsing birthdate string into LocalDate using predefined formatter
         LocalDate dob = LocalDate.parse(birthdate.trim(), DATE_FORMATTER);
         return Period.between(dob, onDate).getYears();
     }

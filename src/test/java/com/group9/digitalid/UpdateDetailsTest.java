@@ -19,6 +19,7 @@ public class UpdateDetailsTest {
 
     @BeforeEach
     public void setUp() throws IOException {
+        // Setting up required test data file before executing each test
         manager = new PersonManager();
 
         List<String> testData = Arrays.asList(
@@ -31,6 +32,7 @@ public class UpdateDetailsTest {
 
     @AfterEach
     public void tearDown() throws IOException {
+        // Removing leftover test data after each run ensuring consistent results
         Files.deleteIfExists(Paths.get(TEST_FILE));
     }
 
